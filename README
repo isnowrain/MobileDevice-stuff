@@ -1,0 +1,9 @@
+== Implicit linking with iTunesMobileDevice DLL in Windows ==
+
+Start the Visual Studio Command Prompt
+
+Run the following commands:
+	"lib /def:iTunesMobileDevice.def /OUT:iTunesMobileDevice.lib"
+	"lib /def:CoreFoundation.def /OUT:CoreFoundation.lib"
+
+Import library files should be generated. Include the library files to your C/C++ project
