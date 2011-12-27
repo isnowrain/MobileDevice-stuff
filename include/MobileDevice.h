@@ -15,7 +15,10 @@ extern "C" {
 #endif
 
 #if defined(WIN32)
-#include <CoreFoundation.h>
+typedef void* CFStringRef;
+typedef void* CFMutableDictionaryRef;
+typedef void* CFDictionaryRef;
+typedef void* CFAllocatorRef;
 typedef unsigned int mach_error_t;
 #elif defined(__APPLE__)
 #include <CoreFoundation/CoreFoundation.h>

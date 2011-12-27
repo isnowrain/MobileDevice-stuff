@@ -1,0 +1,19 @@
+LIBRARY "CoreFoundation"
+EXPORTS
+
+CFShow
+CFRelease
+CFCopyDescription 
+
+CFStringGetCString
+CFStringCreateWithCString
+CFStringGetBytes
+CFStringGetSystemEncoding
+CFStringGetLength
+
+CFDictionarySetValue
+CFDictionaryCreateMutable
+
+__CFStringMakeConstantString
+
+QTGetCFConstant
