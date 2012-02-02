@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <MobileDevice.h>
 
 void dfuConnect(struct am_recovery_device *rdev) {
@@ -20,7 +21,11 @@ void normalMode(struct am_device_notification_callback_info *info, void *foo) {
 	printf("Device connected in Normal/Restore mode\r\n");
 }
 int main(int argc, char* argv[]) {
-
+	char* loc;
+	//TODO: Make this dynamically find the location
+	sprintf(loc, "%s;%s;%s", getenv("PATH"), "C:\\Program Files\\Common Files\\Apple\\Mobile Device Support", "C:\\Program Files\\Common Files\\Apple\\Apple Application Support"); 
+	printf("%s", getenv("PATH"));
+	setenv("PATH", loc, 0);
 	printf("Waiting for device...\r\n");
 	struct am_device_notification *notif;
 	

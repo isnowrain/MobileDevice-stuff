@@ -1,0 +1,5 @@
+C:\Users\Admin\Documents\md-frame\C#\MobileDevice-Interface\bin\Debug\MobileDevice-Interface.exe
+C:\Users\Admin\Documents\md-frame\C#\MobileDevice-Interface\bin\Debug\MobileDevice-Interface.pdb
+C:\Users\Admin\Documents\md-frame\C#\MobileDevice-Interface\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Admin\Documents\md-frame\C#\MobileDevice-Interface\obj\x86\Debug\MobileDevice-Interface.exe
+C:\Users\Admin\Documents\md-frame\C#\MobileDevice-Interface\obj\x86\Debug\MobileDevice-Interface.pdb
