@@ -10,11 +10,39 @@ using Microsoft.Win32;
 
     class Program
     {
-        delegate void DeviceNotificationCallback(IntPtr callback_info);
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
+        struct AMDeviceNotificationCallbackInfo
+        {
+            public IntPtr dev
+            {
+                get
+                {
+                    return dev_ptr;
+                }
+            }
+            private IntPtr dev_ptr;
+            public int msg;
+        }
+
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void DeviceNotificationCallback(ref AMDeviceNotificationCallbackInfo callback_info);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void DeviceRestoreNotificationCallback(IntPtr callback_info);
 
         [DllImport("iTunesMobileDevice.dll", CallingConvention = CallingConvention.Cdecl)]
         extern static int AMDeviceNotificationSubscribe(DeviceNotificationCallback callback, uint unused1, uint unused2, uint unused3, out IntPtr am_device_notification_ptr);
+
+        [DllImport("iTunesMobileDevice.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static int AMRestoreRegisterForDeviceNotifications(
+            DeviceRestoreNotificationCallback dfu_connect,
+            DeviceRestoreNotificationCallback recovery_connect,
+            DeviceRestoreNotificationCallback dfu_disconnect,
+            DeviceRestoreNotificationCallback recovery_disconnect,
+            uint unknown0,
+            IntPtr user_info);
 
         #region initz
         [DllImport("kernel32.dll", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
@@ -87,9 +115,11 @@ using Microsoft.Win32;
             Console.WriteLine("Device exited Recovery Mode");
         }
 
-        static void usbMuxMode(IntPtr callback_info)
+        static void usbMuxMode(ref AMDeviceNotificationCallbackInfo callback_info)
         {
             Console.WriteLine("Device connected in Usb Multiplexing mode");
+            IntPtr devHandle = callback_info.dev;
+
         }
         public static int Main(string[] args)
         {            
@@ -101,7 +131,7 @@ using Microsoft.Win32;
             IntPtr am_device_notification;
            
             AMDeviceNotificationSubscribe(usbMuxMode, 0, 0, 0, out am_device_notification);
-
+            AMRestoreRegisterForDeviceNotifications(dfuConnect, recoveryConnect, dfuDisconnect, recoveryDisconnect, 0, IntPtr.Zero);
             Thread.Sleep(-1);
             return 0;
         }
