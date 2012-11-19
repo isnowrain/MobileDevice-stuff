@@ -1,4 +1,4 @@
-﻿// @iSn0wra1n http://twitter.com/iSn0wra1n
+// @iSn0wra1n http://twitter.com/iSn0wra1n
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -117,8 +117,20 @@ using Microsoft.Win32;
 
         static void usbMuxMode(ref AMDeviceNotificationCallbackInfo callback_info)
         {
-            Console.WriteLine("Device connected in Usb Multiplexing mode");
+            if (callback_info.msg == 1)
+            {
+                Console.WriteLine("Device connected in Usb Multiplexing mode");
+                DoMyCode();
+            }
+            else if (callback_info.msg == 2)
+                Console.WriteLine("Device disconnected when in Usb Multiplexing mode");
+            else
+                Console.WriteLine("Device in unknown usbmux mode");
             IntPtr devHandle = callback_info.dev;
+        }
+
+        static void DoMyCode()
+        {
 
         }
         public static int Main(string[] args)
